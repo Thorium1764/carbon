@@ -1,7 +1,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdlib.h>
-#include <string.h>
+#include <wchar.h>
+#include <stddef.h>
 
 #include "screen.h"
 #include "cell.h"
@@ -19,13 +20,13 @@ bool InitFrameBuffer(Cell **framebuffer, uint8_t bg_color)
    }
    *framebuffer = tmp;
    for (int i = 0; i < bufferSize; i++){
-      (*framebuffer)[i].chr = ' ';
+      (*framebuffer)[i].chr = " ";
       (*framebuffer)[i].bcolor = bg_color;
       (*framebuffer)[i].fcolor = bg_color;
    }
-   (*framebuffer)[bufferSize - 1] = InitCell('\0', 0, 0);
-   for (int i = 1; i < termSize.rows; i++){
-      (*framebuffer)[(termSize.columns + 1) * i - 1] = InitCell('\n', 0, 0);
+   (*framebuffer)[bufferSize - 1] = InitCell("\0", 0, 0);
+   for (int i = 1; i < termSize.rows - 1; i++){
+      (*framebuffer)[(termSize.columns + 1) * i - 1] = InitCell("\n", 0, 0);
    }
    return 1;
 }
