@@ -7,7 +7,7 @@
 #include "cell.h"
 #include "framebuffer.h"
 
-bool InitFrameBuffer(Cell **framebuffer)
+bool InitFrameBuffer(Cell **framebuffer, uint8_t bg_color)
 {
    size termSize;
    GetTerminalSize(&termSize);
@@ -18,7 +18,11 @@ bool InitFrameBuffer(Cell **framebuffer)
       return 0;
    }
    *framebuffer = tmp;
-   memset(*framebuffer, 20, (bufferSize - 1) * sizeof(Cell));
+   for (int i = 0; i < bufferSize; i++){
+      (*framebuffer)[i].chr = ' ';
+      (*framebuffer)[i].bcolor = bg_color;
+      (*framebuffer)[i].fcolor = bg_color;
+   }
    (*framebuffer)[bufferSize - 1] = InitCell('\0', 0, 0);
    for (int i = 1; i < termSize.rows; i++){
       (*framebuffer)[(termSize.columns + 1) * i - 1] = InitCell('\n', 0, 0);
