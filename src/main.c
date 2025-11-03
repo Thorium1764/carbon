@@ -1,11 +1,12 @@
 #include <stdbool.h>
-#include <wchar.h>
 #include <stddef.h>
 #include <stdio.h>
 
 #include "screen.h"
 #include "framebuffer.h"
 #include "cell.h"
+#include "line.h"
+#include "shape.h"
 
 int main()
 {
@@ -13,11 +14,8 @@ int main()
    InitScreen();
    if(!InitFrameBuffer(&framebuffer, 0))
       return 1;
-   if(!DrawCell(&framebuffer, 22, 25, InitCell("\u2588", 20, 0)))
+   if(!DrawLine(&framebuffer, 30, 30, 60, 10, InitCell("#", 15, 0)))//DrawTriangleWF(&framebuffer, 20, 10, 76, 36, 130, 14, InitCell("#", 15, 0)))
       return 2;
-   if(!DrawCell(&framebuffer, 23, 26, InitCell("\u2588", 15, 0)))
-      return 2;
-   wprintf(L"%lc", 'a');
    DrawFrameBuffer(framebuffer);
    for(;;);
    return 0;
