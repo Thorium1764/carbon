@@ -14,7 +14,7 @@ int main()
    InitScreen();
    if(!InitFrameBuffer(&framebuffer, 0))
       return 1;
-   if(!DrawLine(&framebuffer, 30, 30, 60, 10, InitCell("#", 15, 0)))//DrawTriangleWF(&framebuffer, 20, 10, 76, 36, 130, 14, InitCell("#", 15, 0)))
+   if(!DrawTriangleWFHB(&framebuffer, 40, 14, 70, 40, 10, 40, 15))
       return 2;
    DrawFrameBuffer(framebuffer);
    for(;;);

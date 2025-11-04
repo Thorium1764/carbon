@@ -41,3 +41,20 @@ bool DrawCell(Cell **framebuffer, int x, int y, Cell cell)
    (*framebuffer)[linear_address] = cell;
    return 1;
 }
+
+bool DrawHalfBlock(Cell **framebuffer, uint16_t x, uint16_t y, uint8_t color)
+{
+   size termSize;
+   GetTerminalSize(&termSize);
+   if (x < 0 || x >= termSize.columns || y < 0 || y >= 2 * termSize.rows)
+      return 0;
+   if(y % 2 == 1){
+      uint32_t linear_address = ((y - 1) / 2) * (termSize.columns + 1) + x;
+      (*framebuffer)[linear_address].bcolor = color;
+   } else if (y % 2 == 0) {
+      uint32_t linear_address = (y / 2) * (termSize.columns + 1) + x;
+      (*framebuffer)[linear_address].fcolor = color;
+      (*framebuffer)[linear_address].chr = "\u2580";
+   }
+   return 1;
+}
