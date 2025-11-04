@@ -1,6 +1,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "screen.h"
 #include "framebuffer.h"
@@ -17,6 +18,7 @@ int main()
    if(!DrawTriangleWFHB(&framebuffer, 40, 14, 70, 40, 10, 40, 15))
       return 2;
    DrawFrameBuffer(framebuffer);
+   free(framebuffer);
    for(;;);
    return 0;
 }
